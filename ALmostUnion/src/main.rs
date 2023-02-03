@@ -109,16 +109,16 @@ impl AlmostUnionFind {
         root
     }
     /// ## union
-    /// Function that unions the sets containing x and y
-    fn union(&mut self, x: usize, y: usize) {
-        let root_x = self.find(x);
-        let root_y = self.find(y); 
+    /// Function that unions the sets containing p and q
+    fn union(&mut self, p: usize, q: usize) {
+        let root_p = self.find(p);
+        let root_q = self.find(q); 
 
         // If they're not already in the same set
-        if root_x != root_y {
-            self.set_size[root_y] += self.set_size[root_x];
-            self.set_sum[root_y] += self.set_sum[root_x];
-            self.set_id[root_x] = root_y;
+        if root_p != root_q {
+            self.set_size[root_q] += self.set_size[root_p];
+            self.set_sum[root_q] += self.set_sum[root_p];
+            self.set_id[root_p] = root_q;
         }
     }
 
@@ -128,13 +128,13 @@ impl AlmostUnionFind {
     /// To avoid confusion
 
     /// ## move
-    /// Moves element x into the set containing y
+    /// Moves element p into the set containing q
     fn _move(&mut self, p: usize, q: usize) {
         let root_p = self.find(p);
         let root_q = self.find(q);
 
         // Check if they are not in the same set
-
+        //Not setters and getters but set as a group of stuff 
         if root_p != root_q {
             self.set_size[root_q] += 1;
             self.set_size[root_p] -= 1;
@@ -147,7 +147,7 @@ impl AlmostUnionFind {
 
 
     /// ## return
-    /// Function that returns the size of the set containing x
+    /// Function that returns the size of the set containing p
     /// And the sum of all elements
     fn _return(&mut self, p: usize) -> (usize, usize) {
         let root_p = self.find(p);
@@ -156,6 +156,7 @@ impl AlmostUnionFind {
         (size, sum)
     }
 }
+
 
 impl fmt::Display for AlmostUnionFind {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
