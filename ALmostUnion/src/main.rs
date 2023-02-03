@@ -94,17 +94,17 @@ impl AlmostUnionFind {
     /// Function that finds the root of a set
     /// While is not equal to itself 
     /// Afterwards it Compresses its path through the chain
-    fn find(&mut self, mut x: usize) -> usize {
-        let mut root: usize = x;
+    fn find(&mut self, mut p: usize) -> usize {
+        let mut root: usize = p;
 
         while root != self.set_id[root] {
             root = self.set_id[root];
         }
 
-        while x != root {
-            let next: usize = self.set_id[x];
-            self.set_id[x] = root;
-            x = next;
+        while p != root {
+            let next: usize = self.set_id[p];
+            self.set_id[p] = root;
+            p = next;
         }
         root
     }
@@ -129,19 +129,19 @@ impl AlmostUnionFind {
 
     /// ## move
     /// Moves element x into the set containing y
-    fn _move(&mut self, x: usize, y: usize) {
-        let root_x = self.find(x);
-        let root_y = self.find(y);
+    fn _move(&mut self, p: usize, q: usize) {
+        let root_p = self.find(p);
+        let root_q = self.find(q);
 
         // Check if they are not in the same set
 
-        if root_x != root_y {
-            self.set_size[root_y] += 1;
-            self.set_size[root_x] -= 1;
-            self.set_sum[root_y] += x;
-            self.set_sum[root_x] -= x;
+        if root_p != root_q {
+            self.set_size[root_q] += 1;
+            self.set_size[root_p] -= 1;
+            self.set_sum[root_q] += p;
+            self.set_sum[root_p] -= p;
 
-            self.set_id[x] = root_y;
+            self.set_id[p] = root_q;
         }
     }
 
@@ -149,10 +149,10 @@ impl AlmostUnionFind {
     /// ## return
     /// Function that returns the size of the set containing x
     /// And the sum of all elements
-    fn _return(&mut self, x: usize) -> (usize, usize) {
-        let root_x = self.find(x);
-        let size = self.set_size[root_x];
-        let sum = self.set_sum[root_x];
+    fn _return(&mut self, p: usize) -> (usize, usize) {
+        let root_p = self.find(p);
+        let size = self.set_size[root_p];
+        let sum = self.set_sum[root_p];
         (size, sum)
     }
 }
