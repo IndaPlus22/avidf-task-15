@@ -122,7 +122,10 @@ impl AlmostUnionFind {
         }
     }
 
-
+    /// Oops I did it again 
+    /// I used underline, 
+    /// But it was necessary 
+    /// To avoid confusion
 
     /// ## move
     /// Moves element x into the set containing y
@@ -141,8 +144,6 @@ impl AlmostUnionFind {
             self.set_id[x] = root_y;
         }
     }
-
-
 
 
     /// ## return
